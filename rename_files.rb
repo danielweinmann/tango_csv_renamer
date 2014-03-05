@@ -21,7 +21,7 @@ Dir.foreach(@folder) do |file|
 end
 
 @files.each do |file|
-  parsed_file = file.match(/\A(\d{3})-(.+)-(.+)\.(\S{3})\z/)
+  parsed_file = file.match(/\A(\d+)-(.+)-(.+)\.(\S{3})\z/)
   unless parsed_file
     puts "*" * (file.length + 38)
     puts "*** File '#{file}' in wrong naming format ***"
