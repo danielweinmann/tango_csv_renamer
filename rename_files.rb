@@ -21,7 +21,7 @@ Dir.foreach(@folder) do |file|
 end
 
 @files.each do |file|
-  parsed_file = file.match(/\A(\d+)-(.+)-(.+)\.(\S{3})\z/)
+  parsed_file = file.match(/\A(\d+)-([^\(\)]+)-([^\(\)]+)(?:\(.+\))?\.(\S{3})\z/)
   unless parsed_file
     puts "*" * (file.length + 38)
     puts "*** File '#{file}' in wrong naming format ***"
@@ -32,6 +32,7 @@ end
   @title = parsed_file[2]
   @singer = parsed_file[3]
   @singer = nil if @singer == "Instrumental" || @singer == "Solo de piano"
+  @singer.gsub!(" y ", ", ") if @singer
   @extension = parsed_file[4]
   @year = @years[@number]
   @file_name = "#{@year} #{@title}#{" (#{@singer})" if @singer}.#{@extension}"
